@@ -334,7 +334,7 @@ func (w *wrapper) Listxattr(path string, fill func(name string) bool) int {
 }
 
 func convertError(err error) int {
-	if err != nil {
+	if err == nil {
 		return 0
 	}
 	if os.IsExist(err) {
