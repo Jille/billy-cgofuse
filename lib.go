@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"os"
+	"sort"
 	"sync"
 
 	"github.com/billziss-gh/cgofuse/fuse"
@@ -294,6 +295,13 @@ func (w *wrapper) Readdir(path string,
 		if err != nil {
 			return convertError(err)
 		}
+		// TODO(sjors): This sort.Strings is a workaround for an issue
+		// reproducible in at least two implementations of FUSE on macOS.
+		// Perhaps there is an issue in macFUSE somewhere. See e.g.
+		// https://github.com/billziss-gh/cgofuse/issues/57
+		sort.Slice(entries, func(i, j int) bool {
+			return entries[i].Name() < entries[j].Name()
+		})
 		for _, e := range entries {
 			st := new(fuse.Stat_t)
 			fileInfoToStat(e, st)
