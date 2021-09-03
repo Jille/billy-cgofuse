@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/billziss-gh/cgofuse/fuse"
-	"github.com/go-git/go-billy"
+	"github.com/go-git/go-billy/v5"
 )
 
 func New(underlying billy.Basic) fuse.FileSystemInterface {
