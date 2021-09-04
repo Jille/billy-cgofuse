@@ -281,6 +281,8 @@ func fileInfoToStat(fi os.FileInfo, out *fuse.Stat_t) {
 	}
 	if fi.IsDir() {
 		out.Mode |= fuse.S_IFDIR
+	} else {
+		out.Mode |= fuse.S_IFREG
 	}
 }
 
