@@ -307,6 +307,7 @@ func (w *wrapper) Readdir(path string,
 			fileInfoToStat(e, st)
 			fill(e.Name(), st, 0)
 		}
+		return 0
 	}
 	return -fuse.ENOSYS
 }
